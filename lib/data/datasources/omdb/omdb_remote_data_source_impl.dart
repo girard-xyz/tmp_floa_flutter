@@ -8,6 +8,11 @@ class OmdbRemoteDataSourceImpl implements MovieRemoteDataSource {
   OmdbRemoteDataSourceImpl(this.apiClient);
 
   @override
+  Future<Movie> getMovieDetails(String apiKey, String movieId) async {
+    throw UnimplementedError('OMDB not fully implemented yet');
+  }
+
+  @override
   Future<List<Movie>> getPopularMovies(String apiKey, {int page = 1}) async {
     // OMDB n'a pas de top global "popular", nous simulons en cherchant un mot-clé populaire.
     final response = await apiClient.searchMovies(apiKey, "The", "movie");

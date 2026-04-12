@@ -193,6 +193,18 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Rafraîchir'**
   String get tooltipRefresh;
+
+  /// No description provided for @addedToFavorites.
+  ///
+  /// In fr, this message translates to:
+  /// **'{movieTitle} ajouté aux favoris'**
+  String addedToFavorites(String movieTitle);
+
+  /// No description provided for @removedFromFavorites.
+  ///
+  /// In fr, this message translates to:
+  /// **'{movieTitle} retiré des favoris'**
+  String removedFromFavorites(String movieTitle);
 }
 
 class _AppLocalizationsDelegate

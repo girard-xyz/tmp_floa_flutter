@@ -15,5 +15,21 @@
   "themeDark": "Dark",
   "themeSystem": "System",
   "errorGeneric": "Oops! Something went wrong.",
-  "tooltipRefresh": "Refresh"
+  "tooltipRefresh": "Refresh",
+  "addedToFavorites": "{movieTitle} added to favorites",
+  "@addedToFavorites": {
+    "placeholders": {
+      "movieTitle": {
+        "type": "String"
+      }
+    }
+  },
+  "removedFromFavorites": "{movieTitle} removed from favorites",
+  "@removedFromFavorites": {
+    "placeholders": {
+      "movieTitle": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -6,11 +6,11 @@ part 'omdb_movie_model.g.dart';
 @JsonSerializable()
 class OmdbMovieModel extends Movie {
   const OmdbMovieModel({
-    @JsonKey(name: 'imdbID') required String id,
-    @JsonKey(name: 'Title') required String title,
-    @JsonKey(name: 'Year') required String year,
-    @JsonKey(name: 'Poster') required String image,
-  }) : super(id: id, title: title, year: year, image: image, rating: 'N/A');
+    @JsonKey(name: 'imdbID') required super.id,
+    @JsonKey(name: 'Title') required super.title,
+    @JsonKey(name: 'Year') required super.year,
+    @JsonKey(name: 'Poster') required super.image,
+  }) : super(rating: 'N/A');
 
   factory OmdbMovieModel.fromJson(Map<String, dynamic> json) =>
       _$OmdbMovieModelFromJson(json);

@@ -35,7 +35,13 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
           }
           // On rafraîchit la liste pour avoir l'état correct
           final newFavorites = await getFavorites();
-          emit(FavoritesLoaded(newFavorites));
+          emit(
+            FavoritesLoaded(
+              newFavorites,
+              lastToggledMovie: event.movie,
+              isAdded: !isFav,
+            ),
+          );
         } catch (error) {
           // Si on veut être strict, on pourrait émettre une erreur,
           // mais on laisse l'état intact pour la fluidité
@@ -45,7 +51,13 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
         try {
           await saveFavorite(event.movie);
           final newFavorites = await getFavorites();
-          emit(FavoritesLoaded(newFavorites));
+          emit(
+            FavoritesLoaded(
+              newFavorites,
+              lastToggledMovie: event.movie,
+              isAdded: true,
+            ),
+          );
         } catch (_) {}
       }
     });

@@ -11,10 +11,17 @@ class FavoritesLoading extends FavoritesState {}
 
 class FavoritesLoaded extends FavoritesState {
   final List<Movie> favorites;
-  const FavoritesLoaded(this.favorites);
+  final Movie? lastToggledMovie;
+  final bool? isAdded;
+
+  const FavoritesLoaded(this.favorites, {this.lastToggledMovie, this.isAdded});
 
   @override
-  List<Object> get props => [favorites];
+  List<Object> get props => [
+    favorites,
+    if (lastToggledMovie != null) lastToggledMovie!,
+    if (isAdded != null) isAdded!,
+  ];
 
   // Utilitaire très pratique pour la UI
   bool isFavorite(String id) => favorites.any((movie) => movie.id == id);

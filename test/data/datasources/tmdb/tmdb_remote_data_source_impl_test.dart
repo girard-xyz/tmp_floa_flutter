@@ -10,8 +10,9 @@ class FakeTmdbApiClient implements TmdbApiClient {
 
   @override
   Future<TmdbResponse> getPopularMovies(String token, {int page = 1}) async {
-    if (shouldThrow)
+    if (shouldThrow) {
       throw DioException(requestOptions: RequestOptions(path: '/mock'));
+    }
 
     if (mockResponse != null) return mockResponse!;
 

@@ -8,8 +8,12 @@ class ImdbRemoteDataSourceImpl implements MovieRemoteDataSource {
   ImdbRemoteDataSourceImpl(this.apiClient);
 
   @override
+  Future<Movie> getMovieDetails(String apiKey, String movieId) async {
+    throw UnimplementedError('IMDB not fully implemented yet');
+  }
+
+  @override
   Future<List<Movie>> getPopularMovies(String apiKey, {int page = 1}) async {
-    final response = await apiClient.getPopularMovies(apiKey);
-    return response.items;
+    throw UnimplementedError();
   }
 }

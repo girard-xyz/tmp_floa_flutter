@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:movie_explorer/data/models/movie_model.dart';
 
 part 'imdb_api_client.g.dart';
 
@@ -9,5 +8,5 @@ abstract class ImdbApiClient {
   factory ImdbApiClient(Dio dio, {String baseUrl}) = _ImdbApiClient;
 
   @GET("/MostPopularMovies/{apiKey}")
-  Future<MovieResponse> getPopularMovies(@Path("apiKey") String apiKey);
+  Future<dynamic> getPopularMovies(@Path("apiKey") String apiKey);
 }

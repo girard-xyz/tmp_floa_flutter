@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_explorer/domain/repositories/movie_repository.dart';
-import 'package:movie_explorer/domain/usecases/get_movie_details_usecase.dart';
 import 'package:movie_explorer/presentation/blocs/movie_details/movie_details_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/movie_details/movie_details_event.dart';
 import 'package:movie_explorer/presentation/blocs/movie_details/movie_details_state.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_bloc.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_event.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_state.dart';
 import 'package:movie_explorer/presentation/widgets/error_view.dart';
 import 'package:movie_explorer/core/di/injection.dart';
-import 'package:movie_explorer/core/l10n/app_localizations.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final String movieId;
@@ -61,11 +61,41 @@ class _MovieDetailsView extends StatelessWidget {
                 SliverAppBar(
                   expandedHeight: 300,
                   pinned: true,
+                  actions: [
+                    BlocBuilder<FavoritesBloc, FavoritesState>(
+                      builder: (context, favState) {
+                        final isFavorite =
+                            favState is FavoritesLoaded &&
+                            favState.isFavorite(movie.id);
+                        return IconButton(
+                          icon: Icon(
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            color: isFavorite ? Colors.red : Colors.white,
+                          ),
+                          onPressed: () {
+                            context.read<FavoritesBloc>().add(
+                              ToggleFavoriteEvent(movie),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ],
                   flexibleSpace: FlexibleSpaceBar(
+                    titlePadding: const EdgeInsets.only(
+                      left: 16,
+                      right: 60,
+                      bottom: 16,
+                    ),
                     title: Text(
                       movie.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                        shadows: [Shadow(color: Colors.black, blurRadius: 10)],
+                        fontSize: 18,
+                        shadows: [
+                          Shadow(color: Colors.black87, blurRadius: 12),
+                        ],
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -75,6 +105,16 @@ class _MovieDetailsView extends StatelessWidget {
                         Image.network(
                           hasBackdrop ? movie.backdrop! : movie.image,
                           fit: BoxFit.cover,
+                          frameBuilder:
+                              (context, child, frame, wasSynchronouslyLoaded) {
+                                if (wasSynchronouslyLoaded) return child;
+                                return AnimatedOpacity(
+                                  opacity: frame == null ? 0 : 1,
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeOut,
+                                  child: child,
+                                );
+                              },
                           errorBuilder: (ctx, err, trace) =>
                               Container(color: Colors.grey[800]),
                         ),
@@ -111,6 +151,25 @@ class _MovieDetailsView extends StatelessWidget {
                                     width: 100,
                                     height: 150,
                                     fit: BoxFit.cover,
+                                    frameBuilder:
+                                        (
+                                          context,
+                                          child,
+                                          frame,
+                                          wasSynchronouslyLoaded,
+                                        ) {
+                                          if (wasSynchronouslyLoaded) {
+                                            return child;
+                                          }
+                                          return AnimatedOpacity(
+                                            opacity: frame == null ? 0 : 1,
+                                            duration: const Duration(
+                                              milliseconds: 500,
+                                            ),
+                                            curve: Curves.easeOut,
+                                            child: child,
+                                          );
+                                        },
                                     errorBuilder: (ctx, err, constr) =>
                                         Container(
                                           width: 100,

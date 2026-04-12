@@ -55,4 +55,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tooltipRefresh => 'Refresh';
+
+  @override
+  String addedToFavorites(String movieTitle) {
+    return '$movieTitle added to favorites';
+  }
+
+  @override
+  String removedFromFavorites(String movieTitle) {
+    return '$movieTitle removed from favorites';
+  }
 }

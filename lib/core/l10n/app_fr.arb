@@ -15,5 +15,21 @@
   "themeDark": "Sombre",
   "themeSystem": "Système",
   "errorGeneric": "Oups ! Quelque chose a mal tourné.",
-  "tooltipRefresh": "Rafraîchir"
+  "tooltipRefresh": "Rafraîchir",
+  "addedToFavorites": "{movieTitle} ajouté aux favoris",
+  "@addedToFavorites": {
+    "placeholders": {
+      "movieTitle": {
+        "type": "String"
+      }
+    }
+  },
+  "removedFromFavorites": "{movieTitle} retiré des favoris",
+  "@removedFromFavorites": {
+    "placeholders": {
+      "movieTitle": {
+        "type": "String"
+      }
+    }
+  }
 }

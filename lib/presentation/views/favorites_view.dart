@@ -18,8 +18,9 @@ class FavoritesView extends StatelessWidget {
       // pour gérer les transitions vers le message "Vide".
       buildWhen: (previous, current) {
         if (previous is FavoritesLoaded && current is FavoritesLoaded) {
-          if (previous.favorites.isEmpty != current.favorites.isEmpty)
+          if (previous.favorites.isEmpty != current.favorites.isEmpty) {
             return true;
+          }
           return false;
         }
         return true;
