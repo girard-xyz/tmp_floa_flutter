@@ -22,14 +22,16 @@ class FakeMovieRepository implements MovieRepository {
   @override
   Future<void> saveFavorite(Movie movie) async {
     if (shouldThrow) throw Exception('Storage error');
-    final exists = mockFavorites.any((m) => m.id == movie.id);
+    final exists = mockFavorites.any(
+      (existingMovie) => existingMovie.id == movie.id,
+    );
     if (!exists) mockFavorites.add(movie);
   }
 
   @override
   Future<void> removeFavorite(String movieId) async {
     if (shouldThrow) throw Exception('Storage error');
-    mockFavorites.removeWhere((m) => m.id == movieId);
+    mockFavorites.removeWhere((existingMovie) => existingMovie.id == movieId);
   }
 }
 
@@ -67,7 +69,7 @@ void main() {
       bloc.stream,
       emitsInOrder([
         isA<FavoritesLoaded>().having(
-          (s) => s.favorites.isEmpty,
+          (state) => state.favorites.isEmpty,
           'isEmpty',
           true,
         ),
@@ -84,7 +86,11 @@ void main() {
     expectLater(
       bloc.stream,
       emitsInOrder([
-        isA<FavoritesLoaded>().having((s) => s.favorites.length, 'length', 1),
+        isA<FavoritesLoaded>().having(
+          (state) => state.favorites.length,
+          'length',
+          1,
+        ),
       ]),
     );
 
@@ -102,7 +108,7 @@ void main() {
       bloc.stream,
       emitsInOrder([
         isA<FavoritesLoaded>().having(
-          (s) => s.favorites.isEmpty,
+          (state) => state.favorites.isEmpty,
           'is now empty',
           true,
         ),

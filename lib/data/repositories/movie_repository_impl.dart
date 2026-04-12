@@ -26,7 +26,7 @@ class MovieRepositoryImpl implements MovieRepository {
         await localDataSource.cachePopularMovies(remoteMovies);
       }
       return remoteMovies;
-    } catch (e) {
+    } catch (error) {
       try {
         final localMovies = await localDataSource.getLastPopularMovies();
         return localMovies;

@@ -21,8 +21,8 @@ class PopularMoviesBloc extends Bloc<PopularMoviesEvent, PopularMoviesState> {
             hasReachedMax: movies.isEmpty,
           ),
         );
-      } catch (e) {
-        emit(PopularMoviesError(e.toString()));
+      } catch (error) {
+        emit(PopularMoviesError(error.toString()));
       }
     });
 
@@ -49,7 +49,7 @@ class PopularMoviesBloc extends Bloc<PopularMoviesEvent, PopularMoviesState> {
               ),
             );
           }
-        } catch (e) {
+        } catch (error) {
           // En cas de perte réseau discrète au scroll, on ne crashe pas la liste existante
         } finally {
           _isFetching = false;

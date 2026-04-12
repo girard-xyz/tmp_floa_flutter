@@ -17,8 +17,8 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       try {
         final favorites = await getFavorites();
         emit(FavoritesLoaded(favorites));
-      } catch (e) {
-        emit(FavoritesError('Erreur chargement favoris: $e'));
+      } catch (error) {
+        emit(FavoritesError('Erreur chargement favoris: $error'));
       }
     });
 
@@ -36,7 +36,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
           // On rafraîchit la liste pour avoir l'état correct
           final newFavorites = await getFavorites();
           emit(FavoritesLoaded(newFavorites));
-        } catch (e) {
+        } catch (error) {
           // Si on veut être strict, on pourrait émettre une erreur,
           // mais on laisse l'état intact pour la fluidité
         }

@@ -2,9 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_explorer/domain/entities/movie.dart';
 import 'package:movie_explorer/domain/repositories/movie_repository.dart';
 import 'package:movie_explorer/domain/usecases/get_popular_movies_usecase.dart';
-import 'package:movie_explorer/presentation/blocs/popular_movies_bloc.dart';
-import 'package:movie_explorer/presentation/blocs/popular_movies_event.dart';
-import 'package:movie_explorer/presentation/blocs/popular_movies_state.dart';
+import 'package:movie_explorer/presentation/blocs/popular_movies/popular_movies_bloc.dart';
+import 'package:movie_explorer/presentation/blocs/popular_movies/popular_movies_event.dart';
+import 'package:movie_explorer/presentation/blocs/popular_movies/popular_movies_state.dart';
 
 // Mock Manuel du Usecase
 class MockGetPopularMoviesUseCase extends GetPopularMoviesUseCase {
@@ -14,7 +14,7 @@ class MockGetPopularMoviesUseCase extends GetPopularMoviesUseCase {
   List<Movie> mockMovies = [];
 
   @override
-  Future<List<Movie>> call() async {
+  Future<List<Movie>> call({int page = 1}) async {
     if (shouldThrowError) {
       throw Exception('Erreur API simulée');
     }
@@ -24,7 +24,16 @@ class MockGetPopularMoviesUseCase extends GetPopularMoviesUseCase {
 
 class _DummyRepository implements MovieRepository {
   @override
-  Future<List<Movie>> getPopularMovies() async => [];
+  Future<List<Movie>> getPopularMovies({int page = 1}) async => [];
+
+  @override
+  Future<List<Movie>> getFavorites() async => [];
+
+  @override
+  Future<void> removeFavorite(String movieId) async {}
+
+  @override
+  Future<void> saveFavorite(Movie movie) async {}
 }
 
 void main() {
@@ -61,7 +70,7 @@ void main() {
       // Assert Later (S'abonner au flux d'états avant d'émettre l'événement)
       final expectedResponse = [
         PopularMoviesLoading(),
-        const PopularMoviesLoaded([tMovie]),
+        const PopularMoviesLoaded(movies: [tMovie]),
       ];
 
       expectLater(bloc.stream, emitsInOrder(expectedResponse));

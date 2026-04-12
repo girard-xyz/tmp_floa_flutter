@@ -17,7 +17,7 @@ class FavoritesLoaded extends FavoritesState {
   List<Object> get props => [favorites];
 
   // Utilitaire très pratique pour la UI
-  bool isFavorite(String id) => favorites.any((m) => m.id == id);
+  bool isFavorite(String id) => favorites.any((movie) => movie.id == id);
 }
 
 class FavoritesError extends FavoritesState {

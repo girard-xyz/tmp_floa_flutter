@@ -8,9 +8,18 @@ class MockMovieRepository implements MovieRepository {
   List<Movie> mockMoviesToReturn = [];
 
   @override
-  Future<List<Movie>> getPopularMovies() async {
+  Future<List<Movie>> getPopularMovies({int page = 1}) async {
     return mockMoviesToReturn;
   }
+
+  @override
+  Future<List<Movie>> getFavorites() async => [];
+
+  @override
+  Future<void> removeFavorite(String movieId) async {}
+
+  @override
+  Future<void> saveFavorite(Movie movie) async {}
 }
 
 void main() {
