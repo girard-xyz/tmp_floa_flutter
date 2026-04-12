@@ -1,69 +1,60 @@
-# 🎬 Movie Explorer
+# Movie Explorer
 
-Une application Flutter professionnelle de découverte de films, construite selon les principes rigoureux de la **Clean Architecture**. L'application offre une expérience utilisateur fluide, magnifique et hors ligne grâce au support complet de la persistance de données (Sqflite), du multi-thèmes et du multi-langues.
+Application Flutter de découverte de films, développée selon les principes de la Clean Architecture. L'application inclut la persistance de données (Sqflite), la gestion multi-thèmes et le multi-langues.
 
-## ✨ Fonctionnalités Principales
+## Fonctionnalités Principales
 
-- **🍿 Films Populaires :** Défilez de manière infinie à travers les tendances mondiales du cinéma (Source TMDB API). La pagination est invisible et rechargée automatiquement pour une fluidité sans accroc.
-- **❤️ Favoris :** Sauvegardez vos films préférés en mode hors-ligne. Votre bibliothèque personnelle s'alimente et se gère en un clin d'œil.
-- **🌙 Thème Dynamique (Material 3) :** Switcher instantanément entre le Mode Sombre élégant, le Mode Clair ou la détection Automatique du Système via une interface épurée s'appuyant sur les nouveaux `SegmentedButton` de Material 3.
-- **🌍 Internationalisation Intégrée (i18n) :** Changez la langue de l'application (Français / English) à la volée, le tout sauvegardé dans la mémoire locale.
-- **💾 Persistance Robuste :** Aucune connexion Internet ? L'application charge vos films précédemment vus depuis le cache **Sqflite** et maintient l'ensemble de vos paramètres système intacts !
+- Films Populaires : Défilement avec pagination automatique utilisant l'API TMDB.
+- Favoris : Sauvegarde des films pour consultation hors-ligne avec base de données locale.
+- Thème Dynamique (Material 3) : Choix entre Mode Sombre, Mode Clair ou détection du système via SegmentedButton.
+- Internationalisation (i18n) : Prise en charge du Français et de l'Anglais, avec sauvegarde des préférences de langue.
+- Cache & Accessibilité : Utilisation de cached_network_image pour le chargement des images hors-ligne et implémentation de Semantics pour la compatibilité VoiceOver/TalkBack.
 
----
+## Architecture & Choix Techniques
 
-## 🏗 Architecture & Codebase
+L'application repose sur la Clean Architecture (Inversion de Dépendances) afin de conserver une séparation des responsabilités :
 
-Cette application a été méticuleusement conçue autour du paradigme **Clean Architecture** strict avec une séparation ferme des dossiers :
+1. Couche Domain (lib/domain/) : Contient les entités métiers (ex: Movie), les interfaces de Repositories, et les Use Cases ayant une seule responsabilité métier (ex: GetPopularMoviesUseCase). Ne contient aucune dépendance liée à Flutter ou aux frameworks externes.
+2. Couche Data (lib/data/) : Responsable de l'implémentation. Elle exécute et route les requêtes réseaux (TMDB) ou interroge la base locale (SQLite). Cette séparation permet d'interchanger les sources de données sans impacter la logique métier.
+3. Couche Presentation (lib/presentation/) : Gère l'interface utilisateur et s'abonne aux changements d'état poussés par la couche métier.
 
-1. **Couche Domain (`lib/domain/`)** : Cœur métier de l’application. Contient nos Entités (e.g. `Movie`), nos Repositories Abstraits, et l'ensemble de nos Use Cases limités à une responsabilité unique (`GetPopularMoviesUseCase`). Zéro dépendance à Flutter.
-2. **Couche Data (`lib/data/`)** : Gère l'apport en données. Comprend l'implémentation du `MovieRepository`, l'appel HTTP via `Dio` & `Retrofit` sur l’API TMDB, et la base de données SQL locale branchée à `Sqflite`.
-3. **Couche Presentation (`lib/presentation/`)** : Tout ce qui a trait à l'interface. 
-   - L'état de l'interface est soutenu par **Flutter BLoC** (via `Cubit` / `Bloc` Events, States complets isolés par feature : `favorites`, `popular_movies`, `settings`).
-   - L'UI est rendue à travers une série de Vues et Widgets réactifs.
+### Sélections Techniques :
 
-### Standards de Code :
-- Variables et typages **explicites** (pas de variables cryptiques `e`, `m`, etc).
-- Seuls les **imports package absolus** sont utilisés dans le projet pour une robustesse face au refactoring (e.g. `import 'package:movie_explorer/core...'`).
-- Tests Unitaire 100% natifs (Zéro librairie de *Mock* tierce ajoutée : conception interne de `Fakes` propres et autonomes).
+- Gestion d'état (BLoC) : L'utilisation de flutter_bloc gère l'état de chaque fonctionnalité de façon isolée (FavoritesBloc, PopularMoviesBloc, SettingsBloc). Cela permet de séparer formellement les évènements de l'interface des données générées.
+- Injection de Dépendances (GetIt) : L'initialisation asynchrone des UseCases et Repositories est isolée dans un localisateur. Ce choix évite d'alourdir l'arbre de Context Flutter (comparé à RepositoryProvider) et favorise une configuration de tests isolés.
+- Networking (Dio & Retrofit) : Application conjointe de Dio et Retrofit pour isoler, sérialiser et typer formellement les appels HTTP (JSON to Dart).
+- Persistance (Sqflite) : sqflite permet l'interfaçage local. L'ajout de sqflite_common_ffi_web prend en charge l'exécution web du SGBD, assurant le support global du stockage.
+- UI Globale : L'enregistrement du ScaffoldMessenger et des thèmes directement dans le bloc du MaterialApp permet le renvoi d'événements et de Snackbars d'information sans passage manuel du contexte de routage.
 
----
+## Lancement & Installation
 
-## 🚀 Lancement & Installation
+Cibles supportées : Web, iOS, Android.
 
-Ce projet ne vise que des cibles optimisées : **Web, iOS, et Android**.
-
-1. **Récupérer les dépendances :**
+1. Récupérer les dépendances :
    ```bash
    flutter pub get
    ```
 
-2. **(Optionnel) Regénérer le code :**
-   Si vous touchez aux fichiers `.arb` pour les traductions ou aux classes Json (Retrofit) :
+2. Régénérer le code :
    ```bash
    flutter gen-l10n
    flutter pub run build_runner build --delete-conflicting-outputs
    ```
 
-3. **Lancer sur le Web (Chrome) :**
+3. Lancement (exemple Web) :
    ```bash
    flutter run -d chrome
    ```
-   *(La base de données Sqflite est automatiquement branchée sur sqflite_common_ffi_web pour s'assurer que la persistance tourne sans accroc sur navigateur !)*
 
-4. **Lancer les Tests :**
-   La suite de tests unitaires (Usecases, Blocs, et Mappers Data) s'exécute nativement :
+4. Exécuter les tests unitaires natifs :
    ```bash
    flutter test
    ```
 
----
-
-## 🛠 Stack Technique
-- **Framework :** Flutter (Canaux stables)
-- **State Management :** `flutter_bloc`
-- **Networking :** `dio`, `retrofit`
-- **Base de Données / Persistance :** `sqflite`, `sqflite_common_ffi_web`
-- **i18n :** `flutter_localizations`
-- **Data Models :** `json_serializable`, `json_annotation`
-- **Code Quality :** Test unitaires Flutter natifs.
+## Stack Technique
+- Framework : Flutter
+- State Management : flutter_bloc
+- Networking : dio, retrofit
+- Base de Données / Persistance : sqflite, sqflite_common_ffi_web
+- L10N : flutter_localizations
+- Data : json_serializable, json_annotation

@@ -205,6 +205,42 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'{movieTitle} retiré des favoris'**
   String removedFromFavorites(String movieTitle);
+
+  /// No description provided for @a11yMovieCardDetail.
+  ///
+  /// In fr, this message translates to:
+  /// **'Film: {movieTitle}, sorti en {movieYear}'**
+  String a11yMovieCardDetail(String movieTitle, String movieYear);
+
+  /// No description provided for @a11yAddFavorite.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter aux favoris'**
+  String get a11yAddFavorite;
+
+  /// No description provided for @a11yRemoveFavorite.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retirer des favoris'**
+  String get a11yRemoveFavorite;
+
+  /// No description provided for @a11yFavoriteButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bouton de favoris'**
+  String get a11yFavoriteButton;
+
+  /// No description provided for @a11yMovieBackdrop.
+  ///
+  /// In fr, this message translates to:
+  /// **'Arrière plan du film {movieTitle}'**
+  String a11yMovieBackdrop(String movieTitle);
+
+  /// No description provided for @a11yMoviePoster.
+  ///
+  /// In fr, this message translates to:
+  /// **'Affiche du film {movieTitle}'**
+  String a11yMoviePoster(String movieTitle);
 }
 
 class _AppLocalizationsDelegate

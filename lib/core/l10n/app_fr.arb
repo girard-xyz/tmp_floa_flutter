@@ -31,5 +31,27 @@
         "type": "String"
       }
     }
+  },
+  "a11yMovieCardDetail": "Film: {movieTitle}, sorti en {movieYear}",
+  "@a11yMovieCardDetail": {
+    "placeholders": {
+      "movieTitle": { "type": "String" },
+      "movieYear": { "type": "String" }
+    }
+  },
+  "a11yAddFavorite": "Ajouter aux favoris",
+  "a11yRemoveFavorite": "Retirer des favoris",
+  "a11yFavoriteButton": "Bouton de favoris",
+  "a11yMovieBackdrop": "Arrière plan du film {movieTitle}",
+  "@a11yMovieBackdrop": {
+    "placeholders": {
+      "movieTitle": { "type": "String" }
+    }
+  },
+  "a11yMoviePoster": "Affiche du film {movieTitle}",
+  "@a11yMoviePoster": {
+    "placeholders": {
+      "movieTitle": { "type": "String" }
+    }
   }
 }

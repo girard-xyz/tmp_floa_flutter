@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/movie_details/movie_details_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:movie_explorer/presentation/blocs/favorites/favorites_bloc.dart'
 import 'package:movie_explorer/presentation/blocs/favorites/favorites_event.dart';
 import 'package:movie_explorer/presentation/blocs/favorites/favorites_state.dart';
 import 'package:movie_explorer/presentation/widgets/error_view.dart';
+import 'package:movie_explorer/core/l10n/app_localizations.dart';
 import 'package:movie_explorer/core/di/injection.dart';
 
 class MovieDetailsPage extends StatelessWidget {
@@ -67,16 +69,28 @@ class _MovieDetailsView extends StatelessWidget {
                         final isFavorite =
                             favState is FavoritesLoaded &&
                             favState.isFavorite(movie.id);
-                        return IconButton(
-                          icon: Icon(
-                            isFavorite ? Icons.favorite : Icons.favorite_border,
-                            color: isFavorite ? Colors.red : Colors.white,
+                        return Semantics(
+                          label: AppLocalizations.of(
+                            context,
+                          )!.a11yFavoriteButton,
+                          child: IconButton(
+                            tooltip: isFavorite
+                                ? AppLocalizations.of(
+                                    context,
+                                  )!.a11yRemoveFavorite
+                                : AppLocalizations.of(context)!.a11yAddFavorite,
+                            icon: Icon(
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: isFavorite ? Colors.red : Colors.white,
+                            ),
+                            onPressed: () {
+                              context.read<FavoritesBloc>().add(
+                                ToggleFavoriteEvent(movie),
+                              );
+                            },
                           ),
-                          onPressed: () {
-                            context.read<FavoritesBloc>().add(
-                              ToggleFavoriteEvent(movie),
-                            );
-                          },
                         );
                       },
                     ),
@@ -102,21 +116,22 @@ class _MovieDetailsView extends StatelessWidget {
                     background: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Image.network(
-                          hasBackdrop ? movie.backdrop! : movie.image,
-                          fit: BoxFit.cover,
-                          frameBuilder:
-                              (context, child, frame, wasSynchronouslyLoaded) {
-                                if (wasSynchronouslyLoaded) return child;
-                                return AnimatedOpacity(
-                                  opacity: frame == null ? 0 : 1,
-                                  duration: const Duration(milliseconds: 500),
-                                  curve: Curves.easeOut,
-                                  child: child,
-                                );
-                              },
-                          errorBuilder: (ctx, err, trace) =>
-                              Container(color: Colors.grey[800]),
+                        Semantics(
+                          image: true,
+                          label: AppLocalizations.of(
+                            context,
+                          )!.a11yMovieBackdrop(movie.title),
+                          child: CachedNetworkImage(
+                            imageUrl: hasBackdrop
+                                ? movie.backdrop!
+                                : movie.image,
+                            fit: BoxFit.cover,
+                            fadeInDuration: const Duration(milliseconds: 500),
+                            errorWidget: (context, url, error) =>
+                                Container(color: Colors.grey[800]),
+                            placeholder: (context, url) =>
+                                Container(color: Colors.grey[800]),
+                          ),
                         ),
                         // Gradient pour la lisibilité
                         const DecoratedBox(
@@ -146,36 +161,31 @@ class _MovieDetailsView extends StatelessWidget {
                                 padding: const EdgeInsets.only(right: 16.0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
-                                  child: Image.network(
-                                    movie.image,
-                                    width: 100,
-                                    height: 150,
-                                    fit: BoxFit.cover,
-                                    frameBuilder:
-                                        (
-                                          context,
-                                          child,
-                                          frame,
-                                          wasSynchronouslyLoaded,
-                                        ) {
-                                          if (wasSynchronouslyLoaded) {
-                                            return child;
-                                          }
-                                          return AnimatedOpacity(
-                                            opacity: frame == null ? 0 : 1,
-                                            duration: const Duration(
-                                              milliseconds: 500,
-                                            ),
-                                            curve: Curves.easeOut,
-                                            child: child,
-                                          );
-                                        },
-                                    errorBuilder: (ctx, err, constr) =>
-                                        Container(
-                                          width: 100,
-                                          height: 150,
-                                          color: Colors.grey[800],
-                                        ),
+                                  child: Semantics(
+                                    image: true,
+                                    label: AppLocalizations.of(
+                                      context,
+                                    )!.a11yMoviePoster(movie.title),
+                                    child: CachedNetworkImage(
+                                      imageUrl: movie.image,
+                                      width: 100,
+                                      height: 150,
+                                      fit: BoxFit.cover,
+                                      fadeInDuration: const Duration(
+                                        milliseconds: 500,
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Container(
+                                            width: 100,
+                                            height: 150,
+                                            color: Colors.grey[800],
+                                          ),
+                                      placeholder: (context, url) => Container(
+                                        width: 100,
+                                        height: 150,
+                                        color: Colors.grey[800],
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),

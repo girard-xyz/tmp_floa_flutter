@@ -31,5 +31,27 @@
         "type": "String"
       }
     }
+  },
+  "a11yMovieCardDetail": "Movie: {movieTitle}, released in {movieYear}",
+  "@a11yMovieCardDetail": {
+    "placeholders": {
+      "movieTitle": { "type": "String" },
+      "movieYear": { "type": "String" }
+    }
+  },
+  "a11yAddFavorite": "Add to favorites",
+  "a11yRemoveFavorite": "Remove from favorites",
+  "a11yFavoriteButton": "Favorite button",
+  "a11yMovieBackdrop": "Backdrop of movie {movieTitle}",
+  "@a11yMovieBackdrop": {
+    "placeholders": {
+      "movieTitle": { "type": "String" }
+    }
+  },
+  "a11yMoviePoster": "Poster of movie {movieTitle}",
+  "@a11yMoviePoster": {
+    "placeholders": {
+      "movieTitle": { "type": "String" }
+    }
   }
 }

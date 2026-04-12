@@ -65,4 +65,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String removedFromFavorites(String movieTitle) {
     return '$movieTitle removed from favorites';
   }
+
+  @override
+  String a11yMovieCardDetail(String movieTitle, String movieYear) {
+    return 'Movie: $movieTitle, released in $movieYear';
+  }
+
+  @override
+  String get a11yAddFavorite => 'Add to favorites';
+
+  @override
+  String get a11yRemoveFavorite => 'Remove from favorites';
+
+  @override
+  String get a11yFavoriteButton => 'Favorite button';
+
+  @override
+  String a11yMovieBackdrop(String movieTitle) {
+    return 'Backdrop of movie $movieTitle';
+  }
+
+  @override
+  String a11yMoviePoster(String movieTitle) {
+    return 'Poster of movie $movieTitle';
+  }
 }

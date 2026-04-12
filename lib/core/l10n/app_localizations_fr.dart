@@ -65,4 +65,28 @@ class AppLocalizationsFr extends AppLocalizations {
   String removedFromFavorites(String movieTitle) {
     return '$movieTitle retiré des favoris';
   }
+
+  @override
+  String a11yMovieCardDetail(String movieTitle, String movieYear) {
+    return 'Film: $movieTitle, sorti en $movieYear';
+  }
+
+  @override
+  String get a11yAddFavorite => 'Ajouter aux favoris';
+
+  @override
+  String get a11yRemoveFavorite => 'Retirer des favoris';
+
+  @override
+  String get a11yFavoriteButton => 'Bouton de favoris';
+
+  @override
+  String a11yMovieBackdrop(String movieTitle) {
+    return 'Arrière plan du film $movieTitle';
+  }
+
+  @override
+  String a11yMoviePoster(String movieTitle) {
+    return 'Affiche du film $movieTitle';
+  }
 }
