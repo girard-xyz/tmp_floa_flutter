@@ -22,9 +22,9 @@ class _TmdbApiClient implements TmdbApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<TmdbResponse> getPopularMovies(String token) async {
+  Future<TmdbResponse> getPopularMovies(String token, {int page = 1}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;

@@ -1,7 +1,7 @@
 import 'package:movie_explorer/domain/entities/movie.dart';
 
 abstract class MovieRepository {
-  Future<List<Movie>> getPopularMovies();
+  Future<List<Movie>> getPopularMovies({int page = 1});
 
   // --- Favoris ---
   Future<List<Movie>> getFavorites();

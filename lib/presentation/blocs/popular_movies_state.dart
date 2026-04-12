@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:movie_explorer/domain/entities/movie.dart';
+import '../../domain/entities/movie.dart';
 
 abstract class PopularMoviesState extends Equatable {
   const PopularMoviesState();
@@ -14,11 +14,29 @@ class PopularMoviesLoading extends PopularMoviesState {}
 
 class PopularMoviesLoaded extends PopularMoviesState {
   final List<Movie> movies;
+  final int page;
+  final bool hasReachedMax;
 
-  const PopularMoviesLoaded(this.movies);
+  const PopularMoviesLoaded({
+    required this.movies,
+    this.page = 1,
+    this.hasReachedMax = false,
+  });
+
+  PopularMoviesLoaded copyWith({
+    List<Movie>? movies,
+    int? page,
+    bool? hasReachedMax,
+  }) {
+    return PopularMoviesLoaded(
+      movies: movies ?? this.movies,
+      page: page ?? this.page,
+      hasReachedMax: hasReachedMax ?? this.hasReachedMax,
+    );
+  }
 
   @override
-  List<Object> get props => [movies];
+  List<Object> get props => [movies, page, hasReachedMax];
 }
 
 class PopularMoviesError extends PopularMoviesState {

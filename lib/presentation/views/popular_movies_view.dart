@@ -6,8 +6,34 @@ import 'package:movie_explorer/presentation/blocs/popular_movies_state.dart';
 import 'package:movie_explorer/presentation/widgets/error_view.dart';
 import 'package:movie_explorer/presentation/widgets/movie_card.dart';
 
-class PopularMoviesView extends StatelessWidget {
+class PopularMoviesView extends StatefulWidget {
   const PopularMoviesView({super.key});
+
+  @override
+  State<PopularMoviesView> createState() => _PopularMoviesViewState();
+}
+
+class _PopularMoviesViewState extends State<PopularMoviesView> {
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      context.read<PopularMoviesBloc>().add(LoadMorePopularMovies());
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +72,7 @@ class PopularMoviesView extends StatelessWidget {
                 context.read<PopularMoviesBloc>().add(FetchPopularMovies());
               },
               child: GridView.builder(
+                controller: _scrollController,
                 padding: const EdgeInsets.all(16),
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
@@ -53,8 +80,14 @@ class PopularMoviesView extends StatelessWidget {
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
                 ),
-                itemCount: state.movies.length,
+                // +1 pour rajouter un carré de loader si on a pas atteint la fin !
+                itemCount: state.movies.length + (state.hasReachedMax ? 0 : 1),
                 itemBuilder: (context, index) {
+                  if (index >= state.movies.length) {
+                    return const Center(
+                      child: CircularProgressIndicator(color: Colors.amber),
+                    );
+                  }
                   return MovieCard(movie: state.movies[index]);
                 },
               ),

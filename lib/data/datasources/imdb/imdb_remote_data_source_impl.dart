@@ -8,7 +8,7 @@ class ImdbRemoteDataSourceImpl implements MovieRemoteDataSource {
   ImdbRemoteDataSourceImpl(this.apiClient);
 
   @override
-  Future<List<Movie>> getPopularMovies(String apiKey) async {
+  Future<List<Movie>> getPopularMovies(String apiKey, {int page = 1}) async {
     final response = await apiClient.getPopularMovies(apiKey);
     return response.items;
   }

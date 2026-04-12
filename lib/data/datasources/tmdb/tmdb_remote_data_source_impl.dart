@@ -8,9 +8,12 @@ class TmdbRemoteDataSourceImpl implements MovieRemoteDataSource {
   TmdbRemoteDataSourceImpl(this.apiClient);
 
   @override
-  Future<List<Movie>> getPopularMovies(String apiKey) async {
+  Future<List<Movie>> getPopularMovies(String apiKey, {int page = 1}) async {
     // TMDB Attend un header d'autorisation de type Bearer
-    final response = await apiClient.getPopularMovies("Bearer $apiKey");
+    final response = await apiClient.getPopularMovies(
+      "Bearer $apiKey",
+      page: page,
+    );
 
     // On map explicitement nos DTOs en Entités du Domaine
     return response.results.map((model) => model.toEntity()).toList();

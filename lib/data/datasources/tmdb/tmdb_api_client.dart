@@ -9,5 +9,8 @@ abstract class TmdbApiClient {
   factory TmdbApiClient(Dio dio, {String baseUrl}) = _TmdbApiClient;
 
   @GET("/movie/popular?language=fr-FR")
-  Future<TmdbResponse> getPopularMovies(@Header("Authorization") String token);
+  Future<TmdbResponse> getPopularMovies(
+    @Header("Authorization") String token, {
+    @Query("page") int page = 1,
+  });
 }

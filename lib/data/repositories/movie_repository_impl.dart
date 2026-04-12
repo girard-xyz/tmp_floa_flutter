@@ -15,10 +15,16 @@ class MovieRepositoryImpl implements MovieRepository {
   });
 
   @override
-  Future<List<Movie>> getPopularMovies() async {
+  Future<List<Movie>> getPopularMovies({int page = 1}) async {
     try {
-      final remoteMovies = await remoteDataSource.getPopularMovies(apiKey);
-      await localDataSource.cachePopularMovies(remoteMovies);
+      final remoteMovies = await remoteDataSource.getPopularMovies(
+        apiKey,
+        page: page,
+      );
+      if (page == 1) {
+        // Ne mettre en cache que la page 1 (plus simple hors-ligne)
+        await localDataSource.cachePopularMovies(remoteMovies);
+      }
       return remoteMovies;
     } catch (e) {
       try {

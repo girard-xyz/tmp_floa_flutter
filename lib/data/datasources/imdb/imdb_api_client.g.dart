@@ -22,12 +22,12 @@ class _ImdbApiClient implements ImdbApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<MovieResponse> getPopularMovies(String apiKey) async {
+  Future<InvalidType> getPopularMovies(String apiKey) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<MovieResponse>(
+    final _options = _setStreamType<InvalidType>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -38,9 +38,9 @@ class _ImdbApiClient implements ImdbApiClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late MovieResponse _value;
+    late InvalidType _value;
     try {
-      _value = MovieResponse.fromJson(_result.data!);
+      _value = InvalidType.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
