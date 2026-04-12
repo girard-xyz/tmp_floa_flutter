@@ -6,6 +6,7 @@ import 'package:movie_explorer/presentation/blocs/movie_details/movie_details_bl
 import 'package:movie_explorer/presentation/blocs/movie_details/movie_details_event.dart';
 import 'package:movie_explorer/presentation/blocs/movie_details/movie_details_state.dart';
 import 'package:movie_explorer/presentation/widgets/error_view.dart';
+import 'package:movie_explorer/core/di/injection.dart';
 import 'package:movie_explorer/core/l10n/app_localizations.dart';
 
 class MovieDetailsPage extends StatelessWidget {
@@ -15,13 +16,10 @@ class MovieDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Si l'application demande l'ID via le web, le repository doit être accessible dans le contexte via RepositoryProvider.
     return BlocProvider(
-      create: (context) => MovieDetailsBloc(
-        getMovieDetailsUseCase: GetMovieDetailsUseCase(
-          RepositoryProvider.of<MovieRepository>(context),
-        ),
-      )..add(LoadMovieDetails(movieId)),
+      create: (context) =>
+          MovieDetailsBloc(getMovieDetailsUseCase: locator())
+            ..add(LoadMovieDetails(movieId)),
       child: const _MovieDetailsView(),
     );
   }
