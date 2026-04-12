@@ -20,6 +20,11 @@ class FakeMovieRepository implements MovieRepository {
   }
 
   @override
+  Future<Movie> getMovieDetails(String movieId) async {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<void> saveFavorite(Movie movie) async {
     if (shouldThrow) throw Exception('Storage error');
     final exists = mockFavorites.any(

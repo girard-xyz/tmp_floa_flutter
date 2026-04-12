@@ -25,6 +25,8 @@ import 'package:movie_explorer/presentation/blocs/popular_movies/popular_movies_
 import 'package:movie_explorer/presentation/blocs/favorites/favorites_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/favorites/favorites_event.dart';
 import 'package:movie_explorer/presentation/pages/home_page.dart';
+import 'package:movie_explorer/domain/repositories/movie_repository.dart';
+import 'package:movie_explorer/presentation/pages/movie_details_page.dart';
 
 class MovieExplorerApp extends StatelessWidget {
   final Database database;
@@ -54,73 +56,87 @@ class MovieExplorerApp extends StatelessWidget {
       localDataSource: settingsDataSource,
     );
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => SettingsBloc(
-            getThemeUseCase: GetThemeUseCase(settingsRepo),
-            setThemeUseCase: SetThemeUseCase(settingsRepo),
-            getLanguageUseCase: GetLanguageUseCase(settingsRepo),
-            setLanguageUseCase: SetLanguageUseCase(settingsRepo),
-          )..add(LoadSettings()),
-        ),
-        BlocProvider(
-          create: (_) => PopularMoviesBloc(
-            getPopularMoviesUseCase: GetPopularMoviesUseCase(repository),
+    return RepositoryProvider<MovieRepository>(
+      create: (context) => repository,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => SettingsBloc(
+              getThemeUseCase: GetThemeUseCase(settingsRepo),
+              setThemeUseCase: SetThemeUseCase(settingsRepo),
+              getLanguageUseCase: GetLanguageUseCase(settingsRepo),
+              setLanguageUseCase: SetLanguageUseCase(settingsRepo),
+            )..add(LoadSettings()),
           ),
-        ),
-        BlocProvider(
-          create: (_) => FavoritesBloc(
-            getFavorites: GetFavoritesUseCase(repository),
-            saveFavorite: SaveFavoriteUseCase(repository),
-            removeFavorite: RemoveFavoriteUseCase(repository),
-          )..add(LoadFavorites()),
-        ),
-      ],
-      child: BlocBuilder<SettingsBloc, SettingsState>(
-        builder: (context, settingsState) {
-          return MaterialApp(
-            onGenerateTitle: (context) =>
-                AppLocalizations.of(context)!.appTitle,
-            locale: settingsState.locale,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('fr', ''), // Français
-              Locale('en', ''), // English
-            ],
-            themeMode: settingsState.themeMode,
-            theme: ThemeData(
-              brightness: Brightness.light,
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.amber,
+          BlocProvider(
+            create: (_) => PopularMoviesBloc(
+              getPopularMoviesUseCase: GetPopularMoviesUseCase(repository),
+            ),
+          ),
+          BlocProvider(
+            create: (_) => FavoritesBloc(
+              getFavorites: GetFavoritesUseCase(repository),
+              saveFavorite: SaveFavoriteUseCase(repository),
+              removeFavorite: RemoveFavoriteUseCase(repository),
+            )..add(LoadFavorites()),
+          ),
+        ],
+        child: BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, settingsState) {
+            return MaterialApp(
+              onGenerateTitle: (context) =>
+                  AppLocalizations.of(context)!.appTitle,
+              locale: settingsState.locale,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('fr', ''), // Français
+                Locale('en', ''), // English
+              ],
+              themeMode: settingsState.themeMode,
+              theme: ThemeData(
                 brightness: Brightness.light,
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: Colors.amber,
+                  brightness: Brightness.light,
+                ),
+                useMaterial3: true,
               ),
-              useMaterial3: true,
-            ),
-            darkTheme: ThemeData(
-              brightness: Brightness.dark,
-              scaffoldBackgroundColor: const Color(0xFF151515),
-              appBarTheme: const AppBarTheme(
-                backgroundColor: Color(0xFF151515),
-              ),
-              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                backgroundColor: Color(0xFF151515),
-              ),
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.amber,
+              darkTheme: ThemeData(
                 brightness: Brightness.dark,
+                scaffoldBackgroundColor: const Color(0xFF151515),
+                appBarTheme: const AppBarTheme(
+                  backgroundColor: Color(0xFF151515),
+                ),
+                bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                  backgroundColor: Color(0xFF151515),
+                ),
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: Colors.amber,
+                  brightness: Brightness.dark,
+                ),
+                useMaterial3: true,
               ),
-              useMaterial3: true,
-            ),
-            home: const HomePage(),
-          );
-        },
+              home: const HomePage(),
+              onGenerateRoute: (settings) {
+                if (settings.name != null &&
+                    settings.name!.startsWith('/movie/')) {
+                  final id = settings.name!.replaceFirst('/movie/', '');
+                  return MaterialPageRoute(
+                    settings: settings,
+                    builder: (context) => MovieDetailsPage(movieId: id),
+                  );
+                }
+                return null;
+              },
+            );
+          },
+        ),
       ),
-    );
+    ); // <--- Close RepositoryProvider AND MultiBlocProvider
   }
 }

@@ -13,6 +13,11 @@ class MockMovieRepository implements MovieRepository {
   }
 
   @override
+  Future<Movie> getMovieDetails(String movieId) async {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<List<Movie>> getFavorites() async => [];
 
   @override

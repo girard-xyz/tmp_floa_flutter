@@ -15,6 +15,11 @@ class MovieRepositoryImpl implements MovieRepository {
   });
 
   @override
+  Future<Movie> getMovieDetails(String movieId) async {
+    return await remoteDataSource.getMovieDetails(apiKey, movieId);
+  }
+
+  @override
   Future<List<Movie>> getPopularMovies({int page = 1}) async {
     try {
       final remoteMovies = await remoteDataSource.getPopularMovies(

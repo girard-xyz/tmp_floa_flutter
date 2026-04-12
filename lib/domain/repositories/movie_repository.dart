@@ -1,6 +1,7 @@
 import 'package:movie_explorer/domain/entities/movie.dart';
 
 abstract class MovieRepository {
+  Future<Movie> getMovieDetails(String movieId);
   Future<List<Movie>> getPopularMovies({int page = 1});
 
   // --- Favoris ---

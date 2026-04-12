@@ -13,4 +13,10 @@ abstract class TmdbApiClient {
     @Header("Authorization") String token, {
     @Query("page") int page = 1,
   });
+
+  @GET("/movie/{movie_id}?language=fr-FR")
+  Future<TmdbMovieModel> getMovieDetails(
+    @Header("Authorization") String token,
+    @Path("movie_id") String movieId,
+  );
 }

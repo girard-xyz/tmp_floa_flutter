@@ -20,12 +20,28 @@ class TmdbMovieModel {
   @JsonKey(name: 'vote_average')
   final double? voteAverage;
 
+  @JsonKey(name: 'overview')
+  final String? overview;
+
+  @JsonKey(name: 'runtime')
+  final int? runtime;
+
+  @JsonKey(name: 'backdrop_path')
+  final String? backdropPath;
+
+  @JsonKey(name: 'genres')
+  final List<Map<String, dynamic>>? genres;
+
   TmdbMovieModel({
     required this.id,
     required this.title,
     this.releaseDate,
     this.posterPath,
     this.voteAverage,
+    this.overview,
+    this.runtime,
+    this.backdropPath,
+    this.genres,
   });
 
   factory TmdbMovieModel.fromJson(Map<String, dynamic> json) =>
@@ -45,6 +61,12 @@ class TmdbMovieModel {
           ? 'https://image.tmdb.org/t/p/w500$posterPath'
           : '',
       rating: voteAverage?.toStringAsFixed(1) ?? 'N/A',
+      overview: overview,
+      runtime: runtime,
+      backdrop: backdropPath != null
+          ? 'https://image.tmdb.org/t/p/w1280$backdropPath'
+          : null,
+      genres: genres?.map((g) => g['name'] as String).toList(),
     );
   }
 }

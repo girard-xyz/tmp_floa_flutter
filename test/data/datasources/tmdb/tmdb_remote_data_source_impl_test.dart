@@ -27,6 +27,11 @@ class FakeTmdbApiClient implements TmdbApiClient {
       ],
     );
   }
+
+  @override
+  Future<TmdbMovieModel> getMovieDetails(String token, String movieId) async {
+    throw UnimplementedError();
+  }
 }
 
 void main() {

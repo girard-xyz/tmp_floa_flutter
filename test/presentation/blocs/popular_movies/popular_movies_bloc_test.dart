@@ -27,6 +27,11 @@ class _DummyRepository implements MovieRepository {
   Future<List<Movie>> getPopularMovies({int page = 1}) async => [];
 
   @override
+  Future<Movie> getMovieDetails(String movieId) async {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<List<Movie>> getFavorites() async => [];
 
   @override

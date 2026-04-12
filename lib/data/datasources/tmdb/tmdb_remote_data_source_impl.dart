@@ -8,6 +8,12 @@ class TmdbRemoteDataSourceImpl implements MovieRemoteDataSource {
   TmdbRemoteDataSourceImpl(this.apiClient);
 
   @override
+  Future<Movie> getMovieDetails(String apiKey, String movieId) async {
+    final response = await apiClient.getMovieDetails('Bearer $apiKey', movieId);
+    return response.toEntity();
+  }
+
+  @override
   Future<List<Movie>> getPopularMovies(String apiKey, {int page = 1}) async {
     // TMDB Attend un header d'autorisation de type Bearer
     final response = await apiClient.getPopularMovies(
