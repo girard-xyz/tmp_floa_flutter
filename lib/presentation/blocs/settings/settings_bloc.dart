@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_explorer/domain/usecases/settings_usecases.dart';
-import 'settings_event.dart';
-import 'settings_state.dart';
+import 'package:movie_explorer/presentation/blocs/settings/settings_event.dart';
+import 'package:movie_explorer/presentation/blocs/settings/settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final GetThemeUseCase getThemeUseCase;

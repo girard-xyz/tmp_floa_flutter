@@ -13,5 +13,7 @@
   "settingsTheme": "Theme",
   "themeLight": "Light",
   "themeDark": "Dark",
-  "themeSystem": "System"
+  "themeSystem": "System",
+  "errorGeneric": "Oops! Something went wrong.",
+  "tooltipRefresh": "Refresh"
 }

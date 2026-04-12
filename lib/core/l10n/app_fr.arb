@@ -13,5 +13,7 @@
   "settingsTheme": "Thème",
   "themeLight": "Clair",
   "themeDark": "Sombre",
-  "themeSystem": "Système"
+  "themeSystem": "Système",
+  "errorGeneric": "Oups ! Quelque chose a mal tourné.",
+  "tooltipRefresh": "Rafraîchir"
 }

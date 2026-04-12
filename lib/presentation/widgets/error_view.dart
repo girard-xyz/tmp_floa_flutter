@@ -18,9 +18,9 @@ class ErrorView extends StatelessWidget {
           children: [
             const Icon(Icons.error_outline, color: Colors.redAccent, size: 64),
             const SizedBox(height: 16),
-            const Text(
-              'Oups ! Quelque chose a mal tourné.',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.errorGeneric,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

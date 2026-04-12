@@ -49,4 +49,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get themeSystem => 'System';
+
+  @override
+  String get errorGeneric => 'Oops! Something went wrong.';
+
+  @override
+  String get tooltipRefresh => 'Refresh';
 }

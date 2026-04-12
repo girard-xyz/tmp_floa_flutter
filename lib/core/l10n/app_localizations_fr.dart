@@ -49,4 +49,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get themeSystem => 'Système';
+
+  @override
+  String get errorGeneric => 'Oups ! Quelque chose a mal tourné.';
+
+  @override
+  String get tooltipRefresh => 'Rafraîchir';
 }

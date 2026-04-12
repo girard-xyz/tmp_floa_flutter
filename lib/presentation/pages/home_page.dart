@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           if (_currentIndex == 0)
             IconButton(
               icon: const Icon(Icons.refresh),
-              tooltip: 'Rafraîchir',
+              tooltip: AppLocalizations.of(context)!.tooltipRefresh,
               onPressed: () {
                 context.read<PopularMoviesBloc>().add(FetchPopularMovies());
               },

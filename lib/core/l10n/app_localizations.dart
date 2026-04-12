@@ -181,6 +181,18 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Système'**
   String get themeSystem;
+
+  /// No description provided for @errorGeneric.
+  ///
+  /// In fr, this message translates to:
+  /// **'Oups ! Quelque chose a mal tourné.'**
+  String get errorGeneric;
+
+  /// No description provided for @tooltipRefresh.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rafraîchir'**
+  String get tooltipRefresh;
 }
 
 class _AppLocalizationsDelegate
