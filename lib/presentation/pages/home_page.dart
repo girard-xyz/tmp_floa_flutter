@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_explorer/l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/popular_movies_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/popular_movies_event.dart';
@@ -27,7 +28,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color(0xFF151515), // Fond sombre plus élégant
       appBar: AppBar(
-        title: Text(_currentIndex == 0 ? 'Films Populaires' : 'Mes Favoris'),
+        title: Text(
+          _currentIndex == 0
+              ? AppLocalizations.of(context)!.tabPopular
+              : AppLocalizations.of(context)!.tabFavorites,
+        ),
         centerTitle: true,
         backgroundColor: const Color(0xFF151515),
         foregroundColor: Colors.white,
@@ -60,9 +65,15 @@ class _HomePageState extends State<HomePage> {
             _currentIndex = index;
           });
         },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.movie), label: 'Films'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favoris'),
+        items: [
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.movie),
+            label: AppLocalizations.of(context)!.tabPopular,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.favorite),
+            label: AppLocalizations.of(context)!.tabFavorites,
+          ),
         ],
       ),
     );

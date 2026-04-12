@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "appTitle": "Movie Explorer",
+  "tabPopular": "Popular Movies",
+  "tabFavorites": "Favorites",
+  "noMoviesFound": "No movies found.",
+  "noFavoritesYet": "Your favorite movies will appear here.",
+  "errorOccurred": "An error occurred.",
+  "retryButton": "Retry",
+  "offlineError": "Offline and no cache available."
+}

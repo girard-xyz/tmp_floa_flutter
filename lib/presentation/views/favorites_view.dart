@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_explorer/l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../domain/entities/movie.dart';
 import 'package:movie_explorer/presentation/blocs/favorites_bloc.dart';
@@ -39,16 +40,16 @@ class FavoritesView extends StatelessWidget {
           );
         } else if (state is FavoritesLoaded) {
           if (state.favorites.isEmpty) {
-            content = const Center(
-              key: ValueKey('no_data_fav'),
+            content = Center(
+              key: const ValueKey('no_data_fav'),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.favorite_border, size: 64, color: Colors.white54),
                   SizedBox(height: 16),
                   Text(
-                    'Vos films favoris apparaîtront ici.',
-                    style: TextStyle(color: Colors.white70, fontSize: 16),
+                    AppLocalizations.of(context)!.noFavoritesYet,
+                    style: const TextStyle(color: Colors.white70, fontSize: 16),
                   ),
                 ],
               ),

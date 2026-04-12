@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:movie_explorer/l10n/app_localizations.dart';
 
 import 'package:movie_explorer/core/config/env.dart';
 import 'package:movie_explorer/data/datasources/tmdb/tmdb_api_client.dart';
@@ -43,7 +45,17 @@ class MovieExplorerApp extends StatelessWidget {
     final removeFavorite = RemoveFavoriteUseCase(repository);
 
     return MaterialApp(
-      title: 'Movie Explorer',
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('fr', ''), // Français
+        Locale('en', ''), // English
+      ],
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
         useMaterial3: true,

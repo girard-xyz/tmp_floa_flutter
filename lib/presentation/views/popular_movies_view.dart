@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_explorer/l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/popular_movies_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/popular_movies_event.dart';
@@ -56,10 +57,10 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
           );
         } else if (state is PopularMoviesLoaded) {
           if (state.movies.isEmpty) {
-            content = const Center(
-              key: ValueKey('no_data'),
+            content = Center(
+              key: const ValueKey('no_data'),
               child: Text(
-                "Aucun film trouvé.",
+                AppLocalizations.of(context)!.noMoviesFound,
                 style: TextStyle(color: Colors.white70),
               ),
             );
