@@ -63,7 +63,7 @@ Ce projet ne vise que des cibles optimisées : **Web, iOS, et Android**.
 - **Framework :** Flutter (Canaux stables)
 - **State Management :** `flutter_bloc`
 - **Networking :** `dio`, `retrofit`
-- **Base de Données / Persistance :** `sqflite`, `shared_preferences`
+- **Base de Données / Persistance :** `sqflite`, `sqflite_common_ffi_web`
 - **i18n :** `flutter_localizations`
 - **Data Models :** `json_serializable`, `json_annotation`
 - **Code Quality :** Test unitaires Flutter natifs.
