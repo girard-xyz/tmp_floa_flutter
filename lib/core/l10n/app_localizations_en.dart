@@ -31,4 +31,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get offlineError => 'Offline and no cache available.';
+
+  @override
+  String get tabSettings => 'Settings';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsTheme => 'Theme';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get themeSystem => 'System';
 }

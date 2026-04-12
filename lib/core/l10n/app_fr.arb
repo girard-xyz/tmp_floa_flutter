@@ -7,5 +7,11 @@
   "noFavoritesYet": "Vos films favoris apparaîtront ici.",
   "errorOccurred": "Une erreur est survenue.",
   "retryButton": "Réessayer",
-  "offlineError": "Hors ligne et aucun cache disponible."
+  "offlineError": "Hors ligne et aucun cache disponible.",
+  "tabSettings": "Paramètres",
+  "settingsLanguage": "Langue",
+  "settingsTheme": "Thème",
+  "themeLight": "Clair",
+  "themeDark": "Sombre",
+  "themeSystem": "Système"
 }

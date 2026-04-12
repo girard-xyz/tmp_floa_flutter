@@ -24,16 +24,30 @@ void main() async {
   final database = await openDatabase(
     join(dbPath, 'movie_explorer.db'),
     onCreate: (db, version) async {
-      // Création table pour le cache offline général
       await db.execute(
         'CREATE TABLE cache_movies(id TEXT PRIMARY KEY, title TEXT, year TEXT, image TEXT, rating TEXT)',
       );
-      // Création table pour les favoris
       await db.execute(
         'CREATE TABLE favorite_movies(id TEXT PRIMARY KEY, title TEXT, year TEXT, image TEXT, rating TEXT)',
       );
+      await db.execute(
+        'CREATE TABLE preferences(key TEXT PRIMARY KEY, value TEXT)',
+      );
     },
-    version: 1,
+    onUpgrade: (db, oldVersion, newVersion) async {
+      if (oldVersion < 2) {
+        await db.execute(
+          'CREATE TABLE IF NOT EXISTS preferences(key TEXT PRIMARY KEY, value TEXT)',
+        );
+      }
+    },
+    onOpen: (db) async {
+      // Force table creation on open specifically for Web DB cache reliability
+      await db.execute(
+        'CREATE TABLE IF NOT EXISTS preferences(key TEXT PRIMARY KEY, value TEXT)',
+      );
+    },
+    version: 2,
   );
 
   runApp(MovieExplorerApp(database: database));

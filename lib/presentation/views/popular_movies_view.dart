@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_explorer/l10n/app_localizations.dart';
+import 'package:movie_explorer/core/l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/popular_movies_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/popular_movies_event.dart';

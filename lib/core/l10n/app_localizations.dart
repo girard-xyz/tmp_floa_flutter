@@ -145,6 +145,42 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Hors ligne et aucun cache disponible.'**
   String get offlineError;
+
+  /// No description provided for @tabSettings.
+  ///
+  /// In fr, this message translates to:
+  /// **'Paramètres'**
+  String get tabSettings;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Langue'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsTheme.
+  ///
+  /// In fr, this message translates to:
+  /// **'Thème'**
+  String get settingsTheme;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In fr, this message translates to:
+  /// **'Clair'**
+  String get themeLight;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sombre'**
+  String get themeDark;
+
+  /// No description provided for @themeSystem.
+  ///
+  /// In fr, this message translates to:
+  /// **'Système'**
+  String get themeSystem;
 }
 
 class _AppLocalizationsDelegate

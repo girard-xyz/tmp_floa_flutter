@@ -31,4 +31,22 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get offlineError => 'Hors ligne et aucun cache disponible.';
+
+  @override
+  String get tabSettings => 'Paramètres';
+
+  @override
+  String get settingsLanguage => 'Langue';
+
+  @override
+  String get settingsTheme => 'Thème';
+
+  @override
+  String get themeLight => 'Clair';
+
+  @override
+  String get themeDark => 'Sombre';
+
+  @override
+  String get themeSystem => 'Système';
 }

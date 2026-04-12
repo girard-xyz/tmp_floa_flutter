@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:movie_explorer/l10n/app_localizations.dart';
+import 'package:movie_explorer/core/l10n/app_localizations.dart';
 
 import 'package:movie_explorer/core/config/env.dart';
 import 'package:movie_explorer/data/datasources/tmdb/tmdb_api_client.dart';
@@ -12,6 +12,15 @@ import 'package:movie_explorer/data/datasources/local/sqflite_local_data_source_
 import 'package:movie_explorer/data/repositories/movie_repository_impl.dart';
 import 'package:movie_explorer/domain/usecases/get_popular_movies_usecase.dart';
 import 'package:movie_explorer/domain/usecases/favorites_usecases.dart';
+
+import 'package:movie_explorer/data/datasources/local/sqflite_settings_data_source_impl.dart';
+import 'package:movie_explorer/data/repositories/settings_repository_impl.dart';
+import 'package:movie_explorer/domain/usecases/settings_usecases.dart';
+
+import 'package:movie_explorer/presentation/blocs/settings_bloc.dart';
+import 'package:movie_explorer/presentation/blocs/settings_event.dart';
+import 'package:movie_explorer/presentation/blocs/settings_state.dart';
+
 import 'package:movie_explorer/presentation/blocs/popular_movies_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/favorites_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/favorites_event.dart';
@@ -30,7 +39,7 @@ class MovieExplorerApp extends StatelessWidget {
     final tmdbApiClient = TmdbApiClient(dio);
     final remoteDataSource = TmdbRemoteDataSourceImpl(tmdbApiClient);
 
-    // Instanciation de la source locale avec sqflite
+    // Instanciation de la source locale des films
     final localDataSource = SqfliteLocalDataSourceImpl(database: database);
 
     final repository = MovieRepositoryImpl(
@@ -39,43 +48,78 @@ class MovieExplorerApp extends StatelessWidget {
       apiKey: Env.tmdbApiKey,
     );
 
-    final getPopularMoviesUseCase = GetPopularMoviesUseCase(repository);
-    final getFavorites = GetFavoritesUseCase(repository);
-    final saveFavorite = SaveFavoriteUseCase(repository);
-    final removeFavorite = RemoveFavoriteUseCase(repository);
+    // Instanciation des sources de réglages
+    final settingsDataSource = SqfliteSettingsDataSourceImpl(database);
+    final settingsRepo = SettingsRepositoryImpl(
+      localDataSource: settingsDataSource,
+    );
 
-    return MaterialApp(
-      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => SettingsBloc(
+            getThemeUseCase: GetThemeUseCase(settingsRepo),
+            setThemeUseCase: SetThemeUseCase(settingsRepo),
+            getLanguageUseCase: GetLanguageUseCase(settingsRepo),
+            setLanguageUseCase: SetLanguageUseCase(settingsRepo),
+          )..add(LoadSettings()),
+        ),
+        BlocProvider(
+          create: (_) => PopularMoviesBloc(
+            getPopularMoviesUseCase: GetPopularMoviesUseCase(repository),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => FavoritesBloc(
+            getFavorites: GetFavoritesUseCase(repository),
+            saveFavorite: SaveFavoriteUseCase(repository),
+            removeFavorite: RemoveFavoriteUseCase(repository),
+          )..add(LoadFavorites()),
+        ),
       ],
-      supportedLocales: const [
-        Locale('fr', ''), // Français
-        Locale('en', ''), // English
-      ],
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
-        useMaterial3: true,
-      ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (_) => PopularMoviesBloc(
-              getPopularMoviesUseCase: getPopularMoviesUseCase,
+      child: BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, settingsState) {
+          return MaterialApp(
+            onGenerateTitle: (context) =>
+                AppLocalizations.of(context)!.appTitle,
+            locale: settingsState.locale,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('fr', ''), // Français
+              Locale('en', ''), // English
+            ],
+            themeMode: settingsState.themeMode,
+            theme: ThemeData(
+              brightness: Brightness.light,
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.amber,
+                brightness: Brightness.light,
+              ),
+              useMaterial3: true,
             ),
-          ),
-          BlocProvider(
-            create: (_) => FavoritesBloc(
-              getFavorites: getFavorites,
-              saveFavorite: saveFavorite,
-              removeFavorite: removeFavorite,
-            )..add(LoadFavorites()),
-          ),
-        ],
-        child: const HomePage(),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              scaffoldBackgroundColor: const Color(0xFF151515),
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Color(0xFF151515),
+              ),
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                backgroundColor: Color(0xFF151515),
+              ),
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.amber,
+                brightness: Brightness.dark,
+              ),
+              useMaterial3: true,
+            ),
+            home: const HomePage(),
+          );
+        },
       ),
     );
   }

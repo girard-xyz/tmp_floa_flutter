@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:movie_explorer/l10n/app_localizations.dart';
+import 'package:movie_explorer/core/l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/popular_movies_bloc.dart';
 import 'package:movie_explorer/presentation/blocs/popular_movies_event.dart';
 import 'package:movie_explorer/presentation/views/popular_movies_view.dart';
 import 'package:movie_explorer/presentation/views/favorites_view.dart';
+import 'package:movie_explorer/presentation/views/settings_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,22 +24,27 @@ class _HomePageState extends State<HomePage> {
     context.read<PopularMoviesBloc>().add(FetchPopularMovies());
   }
 
+  String _getAppTitle(BuildContext context) {
+    switch (_currentIndex) {
+      case 0:
+        return AppLocalizations.of(context)!.tabPopular;
+      case 1:
+        return AppLocalizations.of(context)!.tabFavorites;
+      case 2:
+        return AppLocalizations.of(context)!.tabSettings;
+      default:
+        return AppLocalizations.of(context)!.appTitle;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF151515), // Fond sombre plus élégant
       appBar: AppBar(
-        title: Text(
-          _currentIndex == 0
-              ? AppLocalizations.of(context)!.tabPopular
-              : AppLocalizations.of(context)!.tabFavorites,
-        ),
+        title: Text(_getAppTitle(context)),
         centerTitle: true,
-        backgroundColor: const Color(0xFF151515),
-        foregroundColor: Colors.white,
         elevation: 0,
         actions: [
-          // Le bouton refresh n'a de sens que sur l'onglet API
           if (_currentIndex == 0)
             IconButton(
               icon: const Icon(Icons.refresh),
@@ -49,15 +55,12 @@ class _HomePageState extends State<HomePage> {
             ),
         ],
       ),
-      // IndexedStack permet de garder l'état de la grille (scroll) intact quand on change d'onglet
       body: IndexedStack(
         index: _currentIndex,
-        children: const [PopularMoviesView(), FavoritesView()],
+        children: const [PopularMoviesView(), FavoritesView(), SettingsView()],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF151515),
         selectedItemColor: Colors.amber,
-        unselectedItemColor: Colors.white54,
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
@@ -73,6 +76,10 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: const Icon(Icons.favorite),
             label: AppLocalizations.of(context)!.tabFavorites,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.settings),
+            label: AppLocalizations.of(context)!.tabSettings,
           ),
         ],
       ),
