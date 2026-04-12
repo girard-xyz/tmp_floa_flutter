@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_explorer/presentation/blocs/favorites_event.dart';
-import 'package:movie_explorer/presentation/blocs/favorites_state.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_event.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_state.dart';
 import 'package:movie_explorer/domain/usecases/favorites_usecases.dart';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/usecases/settings_usecases.dart';
+import 'package:movie_explorer/domain/usecases/settings_usecases.dart';
 import 'settings_event.dart';
 import 'settings_state.dart';
 

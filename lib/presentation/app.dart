@@ -17,13 +17,13 @@ import 'package:movie_explorer/data/datasources/local/sqflite_settings_data_sour
 import 'package:movie_explorer/data/repositories/settings_repository_impl.dart';
 import 'package:movie_explorer/domain/usecases/settings_usecases.dart';
 
-import 'package:movie_explorer/presentation/blocs/settings_bloc.dart';
-import 'package:movie_explorer/presentation/blocs/settings_event.dart';
-import 'package:movie_explorer/presentation/blocs/settings_state.dart';
+import 'package:movie_explorer/presentation/blocs/settings/settings_bloc.dart';
+import 'package:movie_explorer/presentation/blocs/settings/settings_event.dart';
+import 'package:movie_explorer/presentation/blocs/settings/settings_state.dart';
 
-import 'package:movie_explorer/presentation/blocs/popular_movies_bloc.dart';
-import 'package:movie_explorer/presentation/blocs/favorites_bloc.dart';
-import 'package:movie_explorer/presentation/blocs/favorites_event.dart';
+import 'package:movie_explorer/presentation/blocs/popular_movies/popular_movies_bloc.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_bloc.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_event.dart';
 import 'package:movie_explorer/presentation/pages/home_page.dart';
 
 class MovieExplorerApp extends StatelessWidget {

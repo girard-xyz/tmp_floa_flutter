@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_explorer/domain/entities/movie.dart';
-import 'package:movie_explorer/presentation/blocs/favorites_bloc.dart';
-import 'package:movie_explorer/presentation/blocs/favorites_event.dart';
-import 'package:movie_explorer/presentation/blocs/favorites_state.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_bloc.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_event.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_state.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie movie;

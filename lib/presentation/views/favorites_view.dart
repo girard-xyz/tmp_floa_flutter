@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movie_explorer/core/l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../domain/entities/movie.dart';
-import 'package:movie_explorer/presentation/blocs/favorites_bloc.dart';
-import 'package:movie_explorer/presentation/blocs/favorites_state.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_bloc.dart';
+import 'package:movie_explorer/presentation/blocs/favorites/favorites_state.dart';
 import 'package:movie_explorer/presentation/widgets/error_view.dart';
 import 'package:movie_explorer/presentation/widgets/movie_card.dart';
 

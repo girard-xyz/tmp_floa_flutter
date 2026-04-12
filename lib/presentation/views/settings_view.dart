@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_explorer/core/l10n/app_localizations.dart';
-import 'package:movie_explorer/presentation/blocs/settings_bloc.dart';
-import 'package:movie_explorer/presentation/blocs/settings_event.dart';
-import 'package:movie_explorer/presentation/blocs/settings_state.dart';
+import 'package:movie_explorer/presentation/blocs/settings/settings_bloc.dart';
+import 'package:movie_explorer/presentation/blocs/settings/settings_event.dart';
+import 'package:movie_explorer/presentation/blocs/settings/settings_state.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});

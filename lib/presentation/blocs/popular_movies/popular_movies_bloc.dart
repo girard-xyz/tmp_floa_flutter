@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/usecases/get_popular_movies_usecase.dart';
+import 'package:movie_explorer/domain/usecases/get_popular_movies_usecase.dart';
 import 'popular_movies_event.dart';
 import 'popular_movies_state.dart';
 
