@@ -1,5 +1,5 @@
-import '../entities/movie.dart';
-import '../repositories/movie_repository.dart';
+import 'package:movie_explorer/domain/entities/movie.dart';
+import 'package:movie_explorer/domain/repositories/movie_repository.dart';
 
 class GetPopularMoviesUseCase {
   final MovieRepository repository;

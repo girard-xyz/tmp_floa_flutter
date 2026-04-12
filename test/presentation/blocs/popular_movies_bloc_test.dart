@@ -9,7 +9,7 @@ import 'package:movie_explorer/presentation/blocs/popular_movies_state.dart';
 // Mock Manuel du Usecase
 class MockGetPopularMoviesUseCase extends GetPopularMoviesUseCase {
   MockGetPopularMoviesUseCase() : super(_DummyRepository());
-  
+
   bool shouldThrowError = false;
   List<Movie> mockMovies = [];
 
@@ -52,21 +52,24 @@ void main() {
     expect(bloc.state, equals(PopularMoviesInitial()));
   });
 
-  test('doit émettre [Loading, Loaded] quand les données sont récupérées avec succès', () async {
-    // Arrange
-    mockUseCase.mockMovies = [tMovie];
+  test(
+    'doit émettre [Loading, Loaded] quand les données sont récupérées avec succès',
+    () async {
+      // Arrange
+      mockUseCase.mockMovies = [tMovie];
 
-    // Assert Later (S'abonner au flux d'états avant d'émettre l'événement)
-    final expectedResponse = [
-      PopularMoviesLoading(),
-      const PopularMoviesLoaded([tMovie]),
-    ];
-    
-    expectLater(bloc.stream, emitsInOrder(expectedResponse));
+      // Assert Later (S'abonner au flux d'états avant d'émettre l'événement)
+      final expectedResponse = [
+        PopularMoviesLoading(),
+        const PopularMoviesLoaded([tMovie]),
+      ];
 
-    // Act
-    bloc.add(FetchPopularMovies());
-  });
+      expectLater(bloc.stream, emitsInOrder(expectedResponse));
+
+      // Act
+      bloc.add(FetchPopularMovies());
+    },
+  );
 
   test('doit émettre [Loading, Error] quand une exception est levée', () async {
     // Arrange
@@ -77,7 +80,7 @@ void main() {
       PopularMoviesLoading(),
       const PopularMoviesError('Exception: Erreur API simulée'),
     ];
-    
+
     expectLater(bloc.stream, emitsInOrder(expectedResponse));
 
     // Act

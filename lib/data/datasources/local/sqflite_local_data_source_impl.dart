@@ -1,0 +1,60 @@
+import 'package:sqflite/sqflite.dart';
+import 'package:movie_explorer/domain/entities/movie.dart';
+import 'package:movie_explorer/data/models/local/local_movie_model.dart';
+import 'package:movie_explorer/data/datasources/movie_local_data_source.dart';
+
+class SqfliteLocalDataSourceImpl implements MovieLocalDataSource {
+  final Database database;
+
+  SqfliteLocalDataSourceImpl({required this.database});
+
+  // --- Cache (Popular Movies) ---
+  @override
+  Future<List<Movie>> getLastPopularMovies() async {
+    final List<Map<String, dynamic>> maps = await database.query(
+      'cache_movies',
+    );
+    if (maps.isNotEmpty) {
+      return maps.map((map) => LocalMovieModel.fromMap(map)).toList();
+    } else {
+      throw Exception('Aucun cache disponible dans database Sqflite');
+    }
+  }
+
+  @override
+  Future<void> cachePopularMovies(List<Movie> movies) async {
+    final batch = database.batch();
+    batch.delete('cache_movies'); // Vider l'ancien cache
+    for (var movie in movies) {
+      batch.insert('cache_movies', LocalMovieModel.fromEntity(movie).toMap());
+    }
+    await batch.commit(noResult: true);
+  }
+
+  // --- Favoris ---
+  @override
+  Future<List<Movie>> getFavorites() async {
+    final List<Map<String, dynamic>> maps = await database.query(
+      'favorite_movies',
+    );
+    return maps.map((map) => LocalMovieModel.fromMap(map)).toList();
+  }
+
+  @override
+  Future<void> saveFavorite(Movie movie) async {
+    await database.insert(
+      'favorite_movies',
+      LocalMovieModel.fromEntity(movie).toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  @override
+  Future<void> removeFavorite(String movieId) async {
+    await database.delete(
+      'favorite_movies',
+      where: 'id = ?',
+      whereArgs: [movieId],
+    );
+  }
+}

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import '../../models/movie_model.dart';
+import 'package:movie_explorer/data/models/movie_model.dart';
 
 part 'imdb_api_client.g.dart';
 

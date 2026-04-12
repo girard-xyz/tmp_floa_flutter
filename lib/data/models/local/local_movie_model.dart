@@ -1,4 +1,4 @@
-import '../../../domain/entities/movie.dart';
+import 'package:movie_explorer/domain/entities/movie.dart';
 
 class LocalMovieModel extends Movie {
   const LocalMovieModel({
@@ -19,17 +19,17 @@ class LocalMovieModel extends Movie {
     );
   }
 
-  factory LocalMovieModel.fromJson(Map<String, dynamic> json) {
+  factory LocalMovieModel.fromMap(Map<String, dynamic> map) {
     return LocalMovieModel(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      year: json['year'] as String,
-      image: json['image'] as String,
-      rating: json['rating'] as String,
+      id: map['id'] as String,
+      title: map['title'] as String,
+      year: map['year'] as String,
+      image: map['image'] as String,
+      rating: map['rating'] as String,
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,

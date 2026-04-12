@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import '../../models/omdb/omdb_movie_model.dart';
+import 'package:movie_explorer/data/models/omdb/omdb_movie_model.dart';
 
 part 'omdb_api_client.g.dart';
 

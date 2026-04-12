@@ -1,6 +1,6 @@
-import '../../../domain/entities/movie.dart';
-import '../movie_remote_data_source.dart';
-import 'imdb_api_client.dart';
+import 'package:movie_explorer/domain/entities/movie.dart';
+import 'package:movie_explorer/data/datasources/movie_remote_data_source.dart';
+import 'package:movie_explorer/data/datasources/imdb/imdb_api_client.dart';
 
 class ImdbRemoteDataSourceImpl implements MovieRemoteDataSource {
   final ImdbApiClient apiClient;

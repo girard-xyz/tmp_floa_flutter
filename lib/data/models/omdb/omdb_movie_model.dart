@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import '../../../domain/entities/movie.dart';
+import 'package:movie_explorer/domain/entities/movie.dart';
 
 part 'omdb_movie_model.g.dart';
 
@@ -12,7 +12,8 @@ class OmdbMovieModel extends Movie {
     @JsonKey(name: 'Poster') required String image,
   }) : super(id: id, title: title, year: year, image: image, rating: 'N/A');
 
-  factory OmdbMovieModel.fromJson(Map<String, dynamic> json) => _$OmdbMovieModelFromJson(json);
+  factory OmdbMovieModel.fromJson(Map<String, dynamic> json) =>
+      _$OmdbMovieModelFromJson(json);
   Map<String, dynamic> toJson() => _$OmdbMovieModelToJson(this);
 }
 
@@ -23,6 +24,7 @@ class OmdbResponse {
 
   OmdbResponse({this.search});
 
-  factory OmdbResponse.fromJson(Map<String, dynamic> json) => _$OmdbResponseFromJson(json);
+  factory OmdbResponse.fromJson(Map<String, dynamic> json) =>
+      _$OmdbResponseFromJson(json);
   Map<String, dynamic> toJson() => _$OmdbResponseToJson(this);
 }

@@ -22,7 +22,7 @@ void main() {
         "Year": "2017",
         "imdbID": "tt3896198",
         "Type": "movie",
-        "Poster": "https://image.url/poster.jpg"
+        "Poster": "https://image.url/poster.jpg",
       };
 
       final result = OmdbMovieModel.fromJson(jsonMap);
@@ -32,7 +32,7 @@ void main() {
       expect(result.year, equals('2017'));
       expect(result.image, equals('https://image.url/poster.jpg'));
       // Note: we hardcoded rating to 'N/A' inside the model because OMDB Search doesn't return it
-      expect(result.rating, equals('N/A')); 
+      expect(result.rating, equals('N/A'));
     });
   });
 }

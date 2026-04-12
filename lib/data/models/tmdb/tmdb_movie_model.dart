@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import '../../../domain/entities/movie.dart';
+import 'package:movie_explorer/domain/entities/movie.dart';
 
 part 'tmdb_movie_model.g.dart';
 
@@ -28,7 +28,8 @@ class TmdbMovieModel {
     this.voteAverage,
   });
 
-  factory TmdbMovieModel.fromJson(Map<String, dynamic> json) => _$TmdbMovieModelFromJson(json);
+  factory TmdbMovieModel.fromJson(Map<String, dynamic> json) =>
+      _$TmdbMovieModelFromJson(json);
   Map<String, dynamic> toJson() => _$TmdbMovieModelToJson(this);
 
   /// Découple totalement la couche Data de la couche Domain
@@ -37,11 +38,11 @@ class TmdbMovieModel {
     return Movie(
       id: id.toString(),
       title: title,
-      year: releaseDate != null && releaseDate!.length >= 4 
-          ? releaseDate!.substring(0, 4) 
+      year: releaseDate != null && releaseDate!.length >= 4
+          ? releaseDate!.substring(0, 4)
           : 'N/A',
-      image: posterPath != null 
-          ? 'https://image.tmdb.org/t/p/w500$posterPath' 
+      image: posterPath != null
+          ? 'https://image.tmdb.org/t/p/w500$posterPath'
           : '',
       rating: voteAverage?.toStringAsFixed(1) ?? 'N/A',
     );
@@ -54,6 +55,7 @@ class TmdbResponse {
 
   TmdbResponse({required this.results});
 
-  factory TmdbResponse.fromJson(Map<String, dynamic> json) => _$TmdbResponseFromJson(json);
+  factory TmdbResponse.fromJson(Map<String, dynamic> json) =>
+      _$TmdbResponseFromJson(json);
   Map<String, dynamic> toJson() => _$TmdbResponseToJson(this);
 }
