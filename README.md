@@ -6,6 +6,7 @@ Validé sur Web & iOS.
 
 ![screen1](./assets/screen1.png)
 ![screen2](./assets/screen2.png)
+![screen4](./assets/screen4.png)
 ![screen3](./assets/screen3.png)
 
 ## Fonctionnalités Principales
