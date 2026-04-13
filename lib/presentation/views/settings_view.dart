@@ -21,7 +21,7 @@ class SettingsView extends StatelessWidget {
             // --- Carte Langue ---
             Card(
               elevation: 0,
-              color: colorScheme.surfaceContainerHighest.withOpacity(0.3),
+              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
@@ -84,7 +84,7 @@ class SettingsView extends StatelessWidget {
             // --- Carte Thème ---
             Card(
               elevation: 0,
-              color: colorScheme.surfaceContainerHighest.withOpacity(0.3),
+              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),

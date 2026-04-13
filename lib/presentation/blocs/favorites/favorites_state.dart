@@ -19,8 +19,8 @@ class FavoritesLoaded extends FavoritesState {
   @override
   List<Object> get props => [
     favorites,
-    if (lastToggledMovie != null) lastToggledMovie!,
-    if (isAdded != null) isAdded!,
+    ?lastToggledMovie,
+    ?isAdded,
   ];
 
   // Utilitaire très pratique pour la UI

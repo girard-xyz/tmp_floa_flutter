@@ -60,7 +60,7 @@ class MovieCard extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
-                    colors: [Colors.black.withOpacity(0.9), Colors.transparent],
+                    colors: [Colors.black.withValues(alpha: 0.9), Colors.transparent],
                   ),
                 ),
                 child: Column(
@@ -81,7 +81,7 @@ class MovieCard extends StatelessWidget {
                     Text(
                       movie.year,
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white.withValues(alpha: 0.7),
                         fontSize: 12,
                       ),
                     ),
