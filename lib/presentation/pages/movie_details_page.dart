@@ -9,7 +9,7 @@ import 'package:movie_explorer/presentation/blocs/favorites/favorites_event.dart
 import 'package:movie_explorer/presentation/blocs/favorites/favorites_state.dart';
 import 'package:movie_explorer/presentation/widgets/error_view.dart';
 import 'package:movie_explorer/core/l10n/app_localizations.dart';
-import 'package:movie_explorer/core/di/injection.dart';
+import 'package:movie_explorer/core/service_locator.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final String movieId;

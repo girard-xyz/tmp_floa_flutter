@@ -11,11 +11,11 @@ void main() {
       image: 'https://image.url/poster.jpg',
     );
 
-    test('doit être une sous-classe de l\'entité Domain Movie', () {
+    test('should be a subclass of Domain Movie entity', () {
       expect(tModel, isA<Movie>());
     });
 
-    test('fromJson - doit extraire correctement les données du JSON d\'OMDB', () {
+    test('fromJson - should correctly extract data from OMDB JSON', () {
       // Simulate OMDB JSON response structure
       final Map<String, dynamic> jsonMap = {
         "Title": "Guardians of the Galaxy Vol. 2",

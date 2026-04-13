@@ -5,7 +5,7 @@ import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_stor
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'package:movie_explorer/core/config/env.dart';
+import 'package:movie_explorer/core/env.dart';
 
 import 'package:movie_explorer/data/datasources/movie_local_data_source.dart';
 import 'package:movie_explorer/data/datasources/movie_remote_data_source.dart';

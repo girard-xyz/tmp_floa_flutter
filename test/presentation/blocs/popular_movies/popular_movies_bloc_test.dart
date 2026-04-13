@@ -62,17 +62,17 @@ void main() {
     rating: '5',
   );
 
-  test('l\'état initial doit être PopularMoviesInitial', () {
+  test('initial state should be PopularMoviesInitial', () {
     expect(bloc.state, equals(PopularMoviesInitial()));
   });
 
   test(
-    'doit émettre [Loading, Loaded] quand les données sont récupérées avec succès',
+    'should emit [Loading, Loaded] when data is retrieved successfully',
     () async {
       // Arrange
       mockUseCase.mockMovies = [tMovie];
 
-      // Assert Later (S'abonner au flux d'états avant d'émettre l'événement)
+      // Assert Later (Subscribe to state stream before emitting event)
       final expectedResponse = [
         PopularMoviesLoading(),
         const PopularMoviesLoaded(movies: [tMovie]),
@@ -85,7 +85,7 @@ void main() {
     },
   );
 
-  test('doit émettre [Loading, Error] quand une exception est levée', () async {
+  test('should emit [Loading, Error] when an exception is thrown', () async {
     // Arrange
     mockUseCase.shouldThrowError = true;
 

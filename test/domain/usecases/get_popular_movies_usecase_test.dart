@@ -45,7 +45,7 @@ void main() {
     rating: '5',
   );
 
-  test('doit récupérer la liste de films depuis le repository', () async {
+  test('should retrieve the list of movies from the repository', () async {
     // Arrange (Préparation)
     mockRepository.mockMoviesToReturn = [tMovie];
 
