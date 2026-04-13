@@ -85,6 +85,7 @@ class MovieExplorerApp extends StatelessWidget {
                 child: child!,
               );
             },
+            debugShowCheckedModeBanner: false,
             onGenerateTitle: (context) =>
                 AppLocalizations.of(context)!.appTitle,
             locale: settingsState.locale,

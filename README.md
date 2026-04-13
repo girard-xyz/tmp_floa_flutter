@@ -2,6 +2,10 @@
 
 Application Flutter de découverte de films, développée selon les principes de la Clean Architecture. L'application inclut la persistance de données (Sqflite), la gestion multi-thèmes et le multi-langues.
 
+![screen1](./assets/screen1.png)
+![screen2](./assets/screen2.png)
+![screen3](./assets/screen3.png)
+
 ## Fonctionnalités Principales
 
 - Films Populaires : Défilement avec pagination automatique utilisant l'API TMDB.
@@ -30,6 +34,14 @@ L'application repose sur la Clean Architecture (Inversion de Dépendances) afin 
   - Image Cache : Utilisation de cached_network_image pour la restitution locale des posters.
 - UI Globale : L'enregistrement du ScaffoldMessenger et des thèmes directement dans le bloc du MaterialApp permet le renvoi d'événements et de Snackbars d'information sans passage manuel du contexte de routage.
 
+### Notes
+
+Afin de démontrer une pleine maîtrise de l'écosystème Flutter et de la structuration logicielle, ce projet a été délibérément construit autour des couches de la **Clean Architecture**, associées au pattern d'état **BLoC**.
+
+Dans le pragmatisme d'un test technique, certains raccourcis ont aussi été consentis :
+- **Variables d'Environnement** : Les jetons d'API (TMDB) sont déclarés localement et publiquement, sans mécanisme industriel d'obscurcissement CI/CD.
+- **Tests** : Bien que présente pour la demarche, la suite unitaire cible simplement la validation des structures (Domain, Blocs, Remotes) sans chercher une couverture sensée ou utile.
+
 ## Lancement & Installation
 
 Cibles supportées : Web, iOS, Android.
@@ -56,10 +68,10 @@ Cibles supportées : Web, iOS, Android.
    ```
 
 ## Stack Technique
-- Framework : Flutter
 - State Management : flutter_bloc
 - Networking : dio, retrofit
-- Base de Données / Persistance : sqflite, sqflite_common_ffi_web
-- Système de Cache : dio_cache_interceptor (Hive Store), cached_network_image
+- Base de Données / Persistance : sqflite
+- Système de Cache : dio_cache_interceptor, cached_network_image
 - L10N : flutter_localizations
-- Data : json_serializable, json_annotation
+
+Ce projet a été construit avec l'aide d'outils IA.
