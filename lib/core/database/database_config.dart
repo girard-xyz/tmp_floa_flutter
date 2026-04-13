@@ -19,9 +19,6 @@ Future<Database> initDatabase() async {
     join(dbPath, 'movie_explorer.db'),
     onCreate: (db, version) async {
       await db.execute(
-        'CREATE TABLE cache_movies(id TEXT PRIMARY KEY, title TEXT, year TEXT, image TEXT, rating TEXT)',
-      );
-      await db.execute(
         'CREATE TABLE favorite_movies(id TEXT PRIMARY KEY, title TEXT, year TEXT, image TEXT, rating TEXT)',
       );
       await db.execute(

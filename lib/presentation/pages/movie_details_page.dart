@@ -22,13 +22,15 @@ class MovieDetailsPage extends StatelessWidget {
       create: (context) =>
           MovieDetailsBloc(getMovieDetailsUseCase: locator())
             ..add(LoadMovieDetails(movieId)),
-      child: const _MovieDetailsView(),
+      child: _MovieDetailsView(movieId: movieId),
     );
   }
 }
 
 class _MovieDetailsView extends StatelessWidget {
-  const _MovieDetailsView();
+  final String movieId;
+
+  const _MovieDetailsView({required this.movieId});
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +47,9 @@ class _MovieDetailsView extends StatelessWidget {
               body: ErrorView(
                 message: state.message,
                 onRetry: () {
-                  final bloc = context.read<MovieDetailsBloc>();
-                  // On relance avec le même ID
-                  if (bloc.state is MovieDetailsError) {
-                    // C'est un peu "hacky" d'ici mais on suppose qu'il y a qu'un ID par Page
-                  }
+                  context.read<MovieDetailsBloc>().add(
+                    LoadMovieDetails(movieId),
+                  );
                 },
               ),
             );

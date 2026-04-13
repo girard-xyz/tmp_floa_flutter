@@ -8,29 +8,6 @@ class SqfliteLocalDataSourceImpl implements MovieLocalDataSource {
 
   SqfliteLocalDataSourceImpl({required this.database});
 
-  // --- Cache (Popular Movies) ---
-  @override
-  Future<List<Movie>> getLastPopularMovies() async {
-    final List<Map<String, dynamic>> maps = await database.query(
-      'cache_movies',
-    );
-    if (maps.isNotEmpty) {
-      return maps.map((map) => LocalMovieModel.fromMap(map)).toList();
-    } else {
-      throw Exception('Aucun cache disponible dans database Sqflite');
-    }
-  }
-
-  @override
-  Future<void> cachePopularMovies(List<Movie> movies) async {
-    final batch = database.batch();
-    batch.delete('cache_movies'); // Vider l'ancien cache
-    for (var movie in movies) {
-      batch.insert('cache_movies', LocalMovieModel.fromEntity(movie).toMap());
-    }
-    await batch.commit(noResult: true);
-  }
-
   // --- Favoris ---
   @override
   Future<List<Movie>> getFavorites() async {

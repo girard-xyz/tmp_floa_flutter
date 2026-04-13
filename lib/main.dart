@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:movie_explorer/core/database/database_config.dart';
 
@@ -9,9 +10,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final database = await initDatabase();
+  final tempDir = await getTemporaryDirectory();
 
   // --- INJECTION DE DÉPENDANCES ---
-  initDependencies(database);
+  initDependencies(database, tempDir.path);
 
   runApp(const MovieExplorerApp());
 }
